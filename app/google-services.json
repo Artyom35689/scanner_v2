@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "677892902134",
+    "firebase_url": "https://appscannertuzov-c3d82-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "appscannertuzov-c3d82",
+    "storage_bucket": "appscannertuzov-c3d82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677892902134:android:3873512a71fdd84c8570d7",
+        "android_client_info": {
+          "package_name": "ru.zifirka.appscannertuzov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677892902134-931871o2qfvnd8odsde3cgpq1ih5192o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhUAtascS9CD9M-ensy3zOvfcA9HqAGwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677892902134-931871o2qfvnd8odsde3cgpq1ih5192o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677892902134:android:35a2d3de144f0de28570d7",
+        "android_client_info": {
+          "package_name": "ru.zifirka.scanner_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677892902134-931871o2qfvnd8odsde3cgpq1ih5192o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhUAtascS9CD9M-ensy3zOvfcA9HqAGwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677892902134-931871o2qfvnd8odsde3cgpq1ih5192o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
