@@ -5,11 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -23,8 +25,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.widget.TextView;
@@ -39,6 +43,11 @@ public class LoginActivity extends AppCompatActivity {
     private String email;
     FirebaseFirestore db;
     Button scButton;
+    List<String> results;
+    private RecyclerView FragmentRes;
+    FragmentAdapter adapter;
+
+    // массив результов
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +75,13 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         });
+
+        results=new ArrayList<>();
+        FragmentRes = findViewById(R.id.recyclerview);
+        adapter = new FragmentAdapter(results);
+        FragmentRes.setAdapter(adapter);
+
+        // оздаем рекуклер на основе массива
     }
 
     @Override
@@ -73,14 +89,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        if (intentResult.getContents() != null) {
+        if (intentResult != null && intentResult.getContents() != null) {
             String resultString = intentResult.getContents();
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            ResultFragment resultFragment = new ResultFragment(resultString, db);
-            fragmentTransaction.add(R.id.fragment_container_view, resultFragment);
-            fragmentTransaction.commit();
+            results.add(resultString);
+            adapter.notifyDataSetChanged();
+            // убираем транзакшн
+            // вместо этого пихаем новый результ в массив и говорим рекуклер.нотифайдатачанжет
         } else {
             Toast.makeText(getApplicationContext(), "Oops", Toast.LENGTH_SHORT).show();
         }

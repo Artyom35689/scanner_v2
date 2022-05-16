@@ -2,15 +2,22 @@ package ru.zifirka.scanner_v2;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +35,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +47,8 @@ public class ResultFragment extends Fragment {
     private TextView textV;
     private Button sendButton;
     private ImageButton imageButton;
+    private Button cancel_btn;
+    private int a = 1;
 
     private int SELECT_PICTURE = 200;
     private FirebaseFirestore db;
@@ -48,54 +59,21 @@ public class ResultFragment extends Fragment {
         this.db = db;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_result_frahment, container, false);
-        textV = view.findViewById(R.id.text_v);
-        textV.setText(result);
-        imageButton = view.findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(v -> imageChooser());
-        sendButton = view.findViewById(R.id.send_btn);
-        sendButton.setOnClickListener(view1 -> {
-            Map<String, Object> result = new HashMap<>();
-            Date date = new Date();
-            result.put(String.valueOf(date.getTime()), result);
-            db.collection("results")
-                    .add(result)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d("a", "DocumentSnapshot added with ID: " + documentReference.getId());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("a", "Error adding document", e);
-                        }
-                    });
-        });
-
-        return view;
-    }
-
-    private void imageChooser() {
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_PICTURE) {
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    imageButton.setImageURI(selectedImageUri);
-                }
+    ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), intent -> {
+        if(intent.getResultCode() == Activity.RESULT_OK && intent.getData() != null) {
+            Uri uri = intent.getData().getData();
+            ContentResolver contentResolver = requireActivity().getContentResolver();
+            try {
+                InputStream inputStream = contentResolver.openInputStream(uri);
+                Bitmap b = BitmapFactory.decodeStream(inputStream);
+                if(Math.max(b.getWidth(), b.getHeight()) >= 2048)
+                    throw new Exception("Image is too large");
+                imageButton.setImageBitmap(b);
+            } catch (FileNotFoundException e) {
+                Toast.makeText(requireContext(), "Failed to get image", Toast.LENGTH_SHORT);
+            } catch (Exception e) {
+                Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT);
             }
         }
-    }
+    });
 }
