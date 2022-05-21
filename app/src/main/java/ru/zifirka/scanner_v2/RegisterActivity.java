@@ -28,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference ref;
     private FirebaseDatabase database;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
+
 
 
         email_register = findViewById(R.id.email_register);

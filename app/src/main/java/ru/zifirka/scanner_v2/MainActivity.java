@@ -29,7 +29,9 @@ public class MainActivity extends AppCompatActivity {             //this is the 
     private EditText password_field;
     private Button button_login;
     private TextView register_txt;
-    private FirebaseAuth mAuth;
+
+    public static FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
