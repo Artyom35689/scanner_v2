@@ -89,6 +89,7 @@ public class FragmentAdapter extends RecyclerView.Adapter<FragmentAdapter.Fragme
             result.put("name", holder.editText.getText().toString());
             result.put("image", BitMapToString(((BitmapDrawable) holder.imageButton.getDrawable()).getBitmap()));
 
+
             db.collection("results")
                     .add(result)
                     .addOnSuccessListener(documentReference -> {

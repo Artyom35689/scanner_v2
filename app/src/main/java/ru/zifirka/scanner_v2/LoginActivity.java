@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button logout_btn;
     private FirebaseAuth mAuth;
     private DatabaseReference ref;
-    FirebaseFirestore db;
+    public FirebaseFirestore db; ///
     Button scButton;
     List<String> results;
     private RecyclerView FragmentRes;
