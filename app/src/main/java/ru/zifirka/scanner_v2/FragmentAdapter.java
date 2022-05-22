@@ -88,6 +88,7 @@ public class FragmentAdapter extends RecyclerView.Adapter<FragmentAdapter.Fragme
             result.put("result", results.get(position));
             result.put("name", holder.editText.getText().toString());
             result.put("image", BitMapToString(((BitmapDrawable) holder.imageButton.getDrawable()).getBitmap()));
+            result.put("Review", holder.review_text.getText().toString());
 
 
             db.collection("results")
@@ -122,6 +123,7 @@ public class FragmentAdapter extends RecyclerView.Adapter<FragmentAdapter.Fragme
         final ImageButton imageButton;
         final Button sendButton;
         final Button cancel_btn;
+        final EditText review_text;
 
         public FragmentAdapterViewHolder(@NonNull View view) {
             super(view);
@@ -131,6 +133,7 @@ public class FragmentAdapter extends RecyclerView.Adapter<FragmentAdapter.Fragme
             cancel_btn = view.findViewById(R.id.cancel_btn);
             imageButton = view.findViewById(R.id.imageButton);
             sendButton = view.findViewById(R.id.send_btn);
+            review_text = view.findViewById(R.id.review_text);
         }
 
 

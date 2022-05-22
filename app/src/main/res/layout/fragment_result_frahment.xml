@@ -10,9 +10,10 @@
         android:id="@+id/name_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +31,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="45dp"
         android:text="Send to database"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_v" />
+        app:layout_constraintTop_toTopOf="@+id/review_text" />
+
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/send_btn" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -47,14 +58,19 @@
         tools:ignore="SpeakableTextPresentCheck"
         tools:src="@tools:sample/avatars" />
 
-    <Button
-        android:id="@+id/cancel_btn"
+    <EditText
+        android:id="@+id/review_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="Cancel"
+        android:layout_marginEnd="47dp"
+        android:ems="10"
+        android:hint="Review"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/send_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/text_v" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
